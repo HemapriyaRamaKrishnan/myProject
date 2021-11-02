@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
+
 
 @Component({
   selector: 'app-root',
@@ -7,27 +9,39 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent  {
-  title = 'my-project';
-  submitted = false;
-  countryList= [
-    {"countryname":"India"},
-    {"countryname":"England"},
-    {"countryname":"USA"}
+  signinForm: FormGroup;
+  submitted=false;
+  countryList=[
+    {countryname:'India'},
+    {countryname:'England'},
+    {countryname:'Germany'}
+  ];
+  constructor(private formBuilder:FormBuilder) { }
 
-];
-firstname="";
-lastname="";
-email="";
-gender="";
-password="";
-country="";
-city="";
-street="";
-pincode="";
 ngOnInit(): void {
+  this.signinForm = this.formBuilder.group(
+    {
+      FirstName: ['',Validators.required],
+      LastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      password:['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['',Validators.required],
+      phonenumber:['',[ Validators.required, RxwebValidators.pattern({expression:{'onlyDigit': /^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$/} })]], 
+      country: ['',Validators.required],
+      food: ['',Validators.required],
+      check:['',Validators.required]
+  },
+  );
 }
-onSubmit(myForm: NgForm){
-  this.submitted = true;
-  console.log(myForm);
+
+ get f()
+ {
+ return this.signinForm.controls;
 }
+onSubmit()
+{
+  console.log("submitted");
+  this.submitted=true;
+}
+
 }
