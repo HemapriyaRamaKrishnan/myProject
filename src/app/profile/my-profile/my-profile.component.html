@@ -1,0 +1,24 @@
+<p class="px-5">my-profile works!</p>
+<div>
+    <!-- <input type="text" [(ngModel)]="bookName"/> -->
+    <br>
+</div>
+<div class="px-5">
+    <p>bookId:{{bookId}}</p>
+    <br>
+    <p>bookName:{{bookName}}</p>
+    <br>
+    <p>author:{{author}}</p>
+    <br>
+    <p>bookStatus:{{bookStatus}}</p>
+
+</div>
+<div class="px-5 mx-5">
+    <button class="btn btn-success px-5" [disabled]="myButton" (click)="btnToggle()"> Click me</button>
+</div>
+<div>
+    <p>
+        counter={{_maths.counter}}
+    </p>
+</div>
+<button class="btn btn-warning" (click)="increase()"> ADD</button>
